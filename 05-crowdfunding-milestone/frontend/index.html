@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>InnovateFund</title>
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <strong>InnovateFund</strong>
+        <span>ระดมทุนและจ่ายเงินตาม Milestone</span>
+      </div>
+      <div class="wallet">
+        <span id="network" class="pill" hidden></span>
+        <span id="account" class="pill" hidden></span>
+        <button id="connectBtn" type="button">เชื่อมต่อ Wallet</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="card contract-bar">
+        <label class="grow">
+          Contract address
+          <input id="contractInput" placeholder="0x..." autocomplete="off" spellcheck="false" />
+        </label>
+        <label>
+          บล็อกที่ deploy
+          <input id="fromBlockInput" type="number" min="0" step="1" value="0" />
+        </label>
+        <button id="loadContractBtn" type="button">โหลด</button>
+        <p id="contractInfo" class="muted full"></p>
+      </section>
+
+      <div id="notice" class="notice" hidden></div>
+
+      <div class="layout">
+        <section class="card area-list">
+          <div class="card-head">
+            <h2>โครงการทั้งหมด</h2>
+            <button id="refreshBtn" type="button" class="ghost small">รีเฟรช</button>
+          </div>
+          <ul id="campaignList" class="campaign-list"></ul>
+        </section>
+
+        <section class="card area-create">
+          <h2>สร้างโครงการ <span class="req">ข้อ 1</span></h2>
+          <form id="createForm" novalidate>
+            <label>
+              ชื่อโครงการ
+              <input name="title" maxlength="100" required />
+            </label>
+            <label>
+              รายละเอียด
+              <textarea name="description" rows="2" maxlength="500"></textarea>
+            </label>
+            <div class="row3">
+              <label>
+                เป้าหมาย (ETH)
+                <input name="goal" inputmode="decimal" placeholder="3" required />
+              </label>
+              <label>
+                ระดมทุน (นาที)
+                <input name="fundingMinutes" type="number" min="1" step="1" value="10" required />
+              </label>
+              <label>
+                เวลาโหวต (นาที)
+                <input name="votingMinutes" type="number" min="1" step="1" value="5" required />
+              </label>
+            </div>
+            <fieldset>
+              <legend>Milestones</legend>
+              <p class="hint">
+                เวลาทำงานของแต่ละ Milestone นับต่อจาก deadline ก่อนหน้า
+                (ข้อแรกนับจากวันปิดระดมทุน)
+              </p>
+              <div id="milestoneRows"></div>
+              <button id="addMilestoneBtn" type="button" class="ghost small">+ เพิ่ม Milestone</button>
+              <p id="milestoneTotal" class="total"></p>
+            </fieldset>
+            <button type="submit" data-busy-lock>สร้างโครงการ</button>
+          </form>
+        </section>
+
+        <section id="detail" class="detail area-detail"></section>
+      </div>
+    </main>
+
+    <div id="toasts" class="toasts" aria-live="polite"></div>
+  </body>
+</html>
